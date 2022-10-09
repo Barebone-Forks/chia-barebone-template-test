@@ -16,3 +16,4 @@ Additionally:
 
 - testnet names?
 - delete `tools` directory
+- ssl cert attributes
