@@ -13,4 +13,6 @@ Check the following too:
 Change certs and block rewards too.
 
 Additionally:
-testnet names?
+
+- testnet names?
+- delete `tools` directory
