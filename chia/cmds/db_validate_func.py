@@ -175,6 +175,7 @@ def validate_v2(in_path: Path, *, validate_blocks: bool) -> None:
         if current_height != 0:
             raise RuntimeError(f"Database is missing blocks below height {current_height}")
 
+        config = load_config(root_path, "config.yaml")
         expected_genesis_challenge = config["network_overrides"]["constants"][selected]["GENESIS_CHALLENGE"]
 
         # make sure the prev_hash pointer of block height 0 is the genesis
