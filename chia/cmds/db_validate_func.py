@@ -16,13 +16,13 @@ def db_validate_func(
     validate_blocks: bool,
 ) -> None:
     config: Dict[str, Any] = load_config(root_path, "config.yaml")
+    selected_network: str = full_node_config["selected_network"]
 
-    network_constants: Dict[str, Any] = config["network_overrides"]["constants"][selected]
+    network_constants: Dict[str, Any] = config["network_overrides"]["constants"][selected_network]
     genesis_challenge: str = network_constants["GENESIS_CHALLENGE"]
 
     if in_db_path is None:
         full_node_config: Dict[str, Any] = config["full_node"]
-        selected_network: str = full_node_config["selected_network"]
         db_pattern: str = full_node_config["database_path"]
         db_path_replaced: str = db_pattern.replace("CHALLENGE", selected_network)
         in_db_path = path_from_root(root_path, db_path_replaced)
