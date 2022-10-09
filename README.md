@@ -18,3 +18,4 @@ Additionally:
 - delete `tools` directory
 - ssl cert attributes
 - `<SEEDER-FAKE-PORT-8444>` => `<SEEDER-FAKE-PORT=NODE-PORT>`
+- full node introducer peer host
