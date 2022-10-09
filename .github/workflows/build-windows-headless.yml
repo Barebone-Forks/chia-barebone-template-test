@@ -1,0 +1,121 @@
+name: Build Headless Client - Windows 10
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  # SHA is added to the end if on `main` to let all main workflows run
+  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}-${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/long_lived/')) && github.sha || '' }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Windows 10 Headless Client
+    runs-on: [windows-2019]
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: recursive
+
+    - name: Set git urls to https instead of ssh
+      run: |
+        git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+    - name: Get pip cache dir
+      id: pip-cache
+      run: |
+        echo "::set-output name=dir::$(pip cache dir)"
+
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - uses: actions/setup-python@v3
+      name: Install Python ${{ matrix.python-version }}
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    # Create our own venv outside of the git directory JUST for getting the ACTUAL version so that install can't break it
+    - name: Get version number
+      id: version_number
+      run: |
+        python -m venv ..\venv
+        . ..\venv\Scripts\Activate.ps1
+        pip3 install setuptools_scm
+        $env:CHIA_VERSION = python .\build_scripts\installer-version.py -win
+        echo "$env:CHIA_VERSION"
+        echo "::set-output name=CHIA_VERSION::$env:CHIA_VERSION"
+        deactivate
+
+      # Get the most recent release from chia-plotter-madmax
+    - uses: actions/github-script@v6
+      id: 'latest-madmax'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        result-encoding: string
+        script: |
+          const release = await github.rest.repos.getLatestRelease({
+            owner: 'Chia-Network',
+            repo: 'chia-plotter-madmax',
+          });
+          return release.data.tag_name;
+
+    - name: Get latest madmax plotter
+      run: |
+        mkdir "$env:GITHUB_WORKSPACE\madmax"
+        Invoke-WebRequest https://github.com/Chia-Network/chia-plotter-madmax/releases/download/${{ steps.latest-madmax.outputs.result }}/chia_plot-${{ steps.latest-madmax.outputs.result }}.exe -OutFile "$env:GITHUB_WORKSPACE\madmax\chia_plot.exe"
+        Invoke-WebRequest https://github.com/Chia-Network/chia-plotter-madmax/releases/download/${{ steps.latest-madmax.outputs.result }}/chia_plot_k34-${{ steps.latest-madmax.outputs.result }}.exe -OutFile "$env:GITHUB_WORKSPACE\madmax\chia_plot_k34.exe"
+
+      # Get the most recent release from bladebit
+    - uses: actions/github-script@v6
+      id: 'latest-bladebit'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        result-encoding: string
+        script: |
+          const release = await github.rest.repos.getLatestRelease({
+            owner: 'Chia-Network',
+            repo: 'bladebit',
+          });
+          return release.data.tag_name;
+
+    - name: Get latest bladebit plotter
+      run: |
+        mkdir "$env:GITHUB_WORKSPACE\bladebit"
+        Invoke-WebRequest https://github.com/Chia-Network/bladebit/releases/download/${{ steps.latest-bladebit.outputs.result }}/bladebit-${{ steps.latest-bladebit.outputs.result }}-windows-x86-64.zip -OutFile "$env:GITHUB_WORKSPACE\bladebit\bladebit.zip"
+        Expand-Archive -Path "$env:GITHUB_WORKSPACE\bladebit\bladebit.zip" -DestinationPath "$env:GITHUB_WORKSPACE\bladebit\"
+        rm "$env:GITHUB_WORKSPACE\bladebit\bladebit.zip"
+
+    - name: Run install script
+      env:
+        INSTALL_PYTHON_VERSION: ${{ matrix.python-version }}
+      run: |
+        .\Install.ps1 -d
+
+    - name: Build Windows binaries with build_scripts\build_windows-no-gui.ps1
+      env:
+        CHIA_VERSION: ${{ steps.version_number.outputs.CHIA_VERSION }}
+      run: |
+        $env:path="C:\Program` Files` (x86)\Microsoft` Visual` Studio\2019\Enterprise\SDK\ScopeCppSDK\vc15\VC\bin\;$env:path"
+        $env:path="C:\Program` Files` (x86)\Windows` Kits\10\App` Certification` Kit;$env:path"
+        .\venv\Scripts\Activate.ps1
+        cd .\build_scripts
+        .\build_windows_headless.ps1
+
+    - name: Upload Windows exe's to artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: <FORK-TECHNICAL-NAME>-barebone-win-x64
+        path: ${{ github.workspace }}\Chia-win32-x64\
