@@ -440,7 +440,7 @@ class WalletNode:
                     default_peers_file_path="wallet/db/wallet_peers.dat",
                 ),
                 self.config["introducer_peer"],
-                self.config.get("dns_servers", ["<DNS-INTRODUCER>"]),
+                self.config.get("dns_servers", ["dns-introducer.venidium.io"]),
                 self.config["peer_connect_interval"],
                 network_name,
                 None,

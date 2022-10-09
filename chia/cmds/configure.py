@@ -132,9 +132,9 @@ def configure(
 
             elif testnet == "false" or testnet == "f":
                 print("Setting Mainnet")
-                mainnet_port = "<NODE-PORT>"
+                mainnet_port = "5744"
                 mainnet_introducer = "introducer.chia.net"
-                mainnet_dns_introducer = "<DNS-INTRODUCER>"
+                mainnet_dns_introducer = "dns-introducer.venidium.io"
                 bootstrap_peers = ["<SEEDER-BOOTSTRAP-PEER>"]
                 net = "mainnet"
                 config["full_node"]["port"] = int(mainnet_port)
