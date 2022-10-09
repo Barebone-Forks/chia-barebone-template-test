@@ -73,7 +73,7 @@ network_overrides: &network_overrides
       MEMPOOL_BLOCK_BUFFER: 50
       EPOCH_BLOCKS: 768
       DIFFICULTY_STARTING: 30
-    testnet10:
+    kition:
       AGG_SIG_ME_ADDITIONAL_DATA: ae83525ba8d1dd3f09b277de18ca3e43fc0af20d20c4b3e92ef2a48bd291ccb2
       DIFFICULTY_CONSTANT_FACTOR: 10052721566054
       DIFFICULTY_STARTING: 30
@@ -90,7 +90,7 @@ network_overrides: &network_overrides
       default_full_node_port: <NODE-PORT>
     testnet0:
       address_prefix: "txch"
-      default_full_node_port: <TESTNET-NODE-PORT>
+      default_full_node_port: 55744
     testnet1:
       address_prefix: "txch"
     testnet2:
@@ -101,14 +101,14 @@ network_overrides: &network_overrides
       address_prefix: "txch"
     testnet7:
       address_prefix: "txch"
-      default_full_node_port: <TESTNET-NODE-PORT>
-    testnet10:
+      default_full_node_port: 55744
+    kition:
       address_prefix: "txch"
-      default_full_node_port: <TESTNET-NODE-PORT>
+      default_full_node_port: 55744
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://download.chia.net/notify/mainnet_alert.txt
-<FORK-UPCASE-TECHNICAL-NAME>_ALERTS_PUBKEY: 89b7fd87cb56e926ecefb879a29aae308be01f31980569f6a75a69d2a9a69daefd71fb778d865f7c50d6c967e3025937
+VENIDIUM_ALERTS_PUBKEY: 89b7fd87cb56e926ecefb879a29aae308be01f31980569f6a75a69d2a9a69daefd71fb778d865f7c50d6c967e3025937
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns
@@ -116,9 +116,9 @@ private_ssl_ca:
   crt: "config/ssl/ca/private_ca.crt"
   key: "config/ssl/ca/private_ca.key"
 
-<FORK-TECHNICAL-NAME>_ssl_ca:
-  crt: "config/ssl/ca/<FORK-TECHNICAL-NAME>_ca.crt"
-  key: "config/ssl/ca/<FORK-TECHNICAL-NAME>_ca.key"
+venidium_ssl_ca:
+  crt: "config/ssl/ca/venidium_ca.crt"
+  key: "config/ssl/ca/venidium_ca.key"
 
 
 daemon_ssl:
@@ -211,9 +211,9 @@ harvester:
     crt: "config/ssl/ca/private_ca.crt"
     key: "config/ssl/ca/private_ca.key"
 
-  <FORK-TECHNICAL-NAME>_ssl_ca:
-    crt: "config/ssl/ca/<FORK-TECHNICAL-NAME>_ca.crt"
-    key: "config/ssl/ca/<FORK-TECHNICAL-NAME>_ca.key"
+  venidium_ssl_ca:
+    crt: "config/ssl/ca/venidium_ca.crt"
+    key: "config/ssl/ca/venidium_ca.key"
 
 pool:
   # Replace this with a real puzzle hash

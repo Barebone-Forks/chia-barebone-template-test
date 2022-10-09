@@ -175,12 +175,14 @@ def validate_v2(in_path: Path, *, validate_blocks: bool) -> None:
         if current_height != 0:
             raise RuntimeError(f"Database is missing blocks below height {current_height}")
 
+        expected_genesis_challenge = config["network_overrides"]["constants"][selected]["GENESIS_CHALLENGE"]
+
         # make sure the prev_hash pointer of block height 0 is the genesis
         # challenge
-        if next_hash != DEFAULT_CONSTANTS.<CORRECT-GENESIS-CHALLENGE>:
+        if next_hash != expected_genesis_challenge:
             raise RuntimeError(
                 f"Blockchain has invalid genesis challenge {next_hash.hex()}, expected "
-                f"{DEFAULT_CONSTANTS.<CORRECT-GENESIS-CHALLENGE>.hex()}"
+                f"{expected_genesis_challenge.hex()}"
             )
 
         if num_orphans > 0:

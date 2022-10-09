@@ -8,7 +8,7 @@ from chia.util.ws_message import WsRpcMessage, create_payload_dict
 class CrawlerRpcApi:
     def __init__(self, crawler: Crawler):
         self.service = crawler
-        self.service_name = "<FORK-TECHNICAL-NAME>_crawler"
+        self.service_name = "venidium_crawler"
 
     def get_routes(self) -> Dict[str, Callable]:
         return {

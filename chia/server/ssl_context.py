@@ -25,6 +25,6 @@ def private_ssl_ca_paths(path: Path, config: Dict):
 
 def chia_ssl_ca_paths(path: Path, config: Dict):
     return (
-        path / config["<FORK-TECHNICAL-NAME>_ssl_ca"]["crt"],
-        path / config["<FORK-TECHNICAL-NAME>_ssl_ca"]["key"],
+        path / config["venidium_ssl_ca"]["crt"],
+        path / config["venidium_ssl_ca"]["key"],
     )

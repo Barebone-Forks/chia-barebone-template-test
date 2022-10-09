@@ -19,10 +19,10 @@ from typing import Any, List, Optional, Tuple, Type, Union
 # WARNING: Changing the default passphrase will prevent passphrase-less users from accessing
 # their existing keys. Using a new default passphrase requires migrating existing users to
 # the new passphrase.
-DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE = "<DEFAULT-PASSPHRASE>"
+DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE = "$ venidium passphrase set # all the cool kids are doing it!"
 
-MASTER_PASSPHRASE_SERVICE_NAME = "<FORK-DISPLAY-NAME> Passphrase"
-MASTER_PASSPHRASE_USER_NAME = "<FORK-DISPLAY-NAME> Passphrase"
+MASTER_PASSPHRASE_SERVICE_NAME = "Venidium Passphrase"
+MASTER_PASSPHRASE_USER_NAME = "Venidium Passphrase"
 
 
 LegacyKeyring = Union[MacKeyring, WinKeyring, CryptFileKeyring]

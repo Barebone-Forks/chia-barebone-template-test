@@ -65,7 +65,7 @@ class WalletRpcApi:
     def __init__(self, wallet_node: WalletNode):
         assert wallet_node is not None
         self.service = wallet_node
-        self.service_name = "<FORK-TECHNICAL-NAME>_wallet"
+        self.service_name = "venidium_wallet"
         self.balance_cache: Dict[int, Any] = {}
 
     def get_routes(self) -> Dict[str, Callable]:
@@ -336,8 +336,8 @@ class WalletRpcApi:
             return False, False
 
         config: Dict = load_config(new_root, "config.yaml")
-        farmer_target = config["farmer"].get("<TICKER>_target_address")
-        pool_target = config["pool"].get("<TICKER>_target_address")
+        farmer_target = config["farmer"].get("xvm_target_address")
+        pool_target = config["pool"].get("xvm_target_address")
         address_to_check: List[bytes32] = [decode_puzzle_hash(farmer_target), decode_puzzle_hash(pool_target)]
 
         found_addresses: Set[bytes32] = match_address_to_sk(sk, address_to_check, max_ph_to_search)

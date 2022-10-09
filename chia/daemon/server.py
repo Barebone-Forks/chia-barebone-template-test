@@ -90,17 +90,17 @@ class PlotEvent(str, Enum):
 # determine if application is a script file or frozen exe
 if getattr(sys, "frozen", False):
     name_map = {
-        "<FORK-TECHNICAL-NAME>": "chia",
-        "<FORK-TECHNICAL-NAME>_wallet": "start_wallet",
-        "<FORK-TECHNICAL-NAME>_full_node": "start_full_node",
-        "<FORK-TECHNICAL-NAME>_harvester": "start_harvester",
-        "<FORK-TECHNICAL-NAME>_farmer": "start_farmer",
-        "<FORK-TECHNICAL-NAME>_introducer": "start_introducer",
-        "<FORK-TECHNICAL-NAME>_timelord": "start_timelord",
-        "<FORK-TECHNICAL-NAME>_timelord_launcher": "timelord_launcher",
-        "<FORK-TECHNICAL-NAME>_full_node_simulator": "start_simulator",
-        "<FORK-TECHNICAL-NAME>_seeder": "start_seeder",
-        "<FORK-TECHNICAL-NAME>_crawler": "start_crawler",
+        "venidium": "chia",
+        "venidium_wallet": "start_wallet",
+        "venidium_full_node": "start_full_node",
+        "venidium_harvester": "start_harvester",
+        "venidium_farmer": "start_farmer",
+        "venidium_introducer": "start_introducer",
+        "venidium_timelord": "start_timelord",
+        "venidium_timelord_launcher": "timelord_launcher",
+        "venidium_full_node_simulator": "start_simulator",
+        "venidium_seeder": "start_seeder",
+        "venidium_crawler": "start_crawler",
     }
 
     def executable_for_service(service_name: str) -> str:
@@ -1270,7 +1270,7 @@ def launch_service(root_path: Path, service_command) -> Tuple[subprocess.Popen, 
     service_executable = executable_for_service(service_array[0])
     service_array[0] = service_executable
 
-    if service_command == "<FORK-TECHNICAL-NAME>_full_node_simulator":
+    if service_command == "venidium_full_node_simulator":
         # Set the -D/--connect_to_daemon flag to signify that the child should connect
         # to the daemon to access the keychain
         service_array.append("-D")
@@ -1379,7 +1379,7 @@ async def async_run_daemon(root_path: Path, wait_for_unlock: bool = False) -> in
     # since it might be necessary to wait for the GUI to unlock the keyring first.
     chia_init(root_path, should_check_keys=(not wait_for_unlock))
     config = load_config(root_path, "config.yaml")
-    setproctitle("<FORK-TECHNICAL-NAME>_daemon")
+    setproctitle("venidium_daemon")
     initialize_logging("daemon", config["logging"], root_path)
     lockfile = singleton(daemon_launch_lock_path(root_path))
     crt_path = root_path / config["daemon_ssl"]["private_crt"]

@@ -1,21 +1,21 @@
 from typing import KeysView, Generator
 
 SERVICES_FOR_GROUP = {
-    "all": "<FORK-TECHNICAL-NAME>_harvester <FORK-TECHNICAL-NAME>_timelord_launcher <FORK-TECHNICAL-NAME>_timelord <FORK-TECHNICAL-NAME>_farmer <FORK-TECHNICAL-NAME>_full_node <FORK-TECHNICAL-NAME>_wallet".split(),
-    "node": "<FORK-TECHNICAL-NAME>_full_node".split(),
-    "harvester": "<FORK-TECHNICAL-NAME>_harvester".split(),
-    "farmer": "<FORK-TECHNICAL-NAME>_harvester <FORK-TECHNICAL-NAME>_farmer <FORK-TECHNICAL-NAME>_full_node <FORK-TECHNICAL-NAME>_wallet".split(),
-    "farmer-no-wallet": "<FORK-TECHNICAL-NAME>_harvester <FORK-TECHNICAL-NAME>_farmer <FORK-TECHNICAL-NAME>_full_node".split(),
-    "farmer-only": "<FORK-TECHNICAL-NAME>_farmer".split(),
-    "timelord": "<FORK-TECHNICAL-NAME>_timelord_launcher <FORK-TECHNICAL-NAME>_timelord <FORK-TECHNICAL-NAME>_full_node".split(),
-    "timelord-only": "<FORK-TECHNICAL-NAME>_timelord".split(),
-    "timelord-launcher-only": "<FORK-TECHNICAL-NAME>_timelord_launcher".split(),
-    "wallet": "<FORK-TECHNICAL-NAME>_wallet".split(),
-    "introducer": "<FORK-TECHNICAL-NAME>_introducer".split(),
-    "simulator": "<FORK-TECHNICAL-NAME>_full_node_simulator".split(),
-    "crawler": "<FORK-TECHNICAL-NAME>_crawler".split(),
-    "seeder": "<FORK-TECHNICAL-NAME>_crawler <FORK-TECHNICAL-NAME>_seeder".split(),
-    "seeder-only": "<FORK-TECHNICAL-NAME>_seeder".split(),
+    "all": "venidium_harvester venidium_timelord_launcher venidium_timelord venidium_farmer venidium_full_node venidium_wallet".split(),
+    "node": "venidium_full_node".split(),
+    "harvester": "venidium_harvester".split(),
+    "farmer": "venidium_harvester venidium_farmer venidium_full_node venidium_wallet".split(),
+    "farmer-no-wallet": "venidium_harvester venidium_farmer venidium_full_node".split(),
+    "farmer-only": "venidium_farmer".split(),
+    "timelord": "venidium_timelord_launcher venidium_timelord venidium_full_node".split(),
+    "timelord-only": "venidium_timelord".split(),
+    "timelord-launcher-only": "venidium_timelord_launcher".split(),
+    "wallet": "venidium_wallet".split(),
+    "introducer": "venidium_introducer".split(),
+    "simulator": "venidium_full_node_simulator".split(),
+    "crawler": "venidium_crawler".split(),
+    "seeder": "venidium_crawler venidium_seeder".split(),
+    "seeder-only": "venidium_seeder".split(),
 }
 
 

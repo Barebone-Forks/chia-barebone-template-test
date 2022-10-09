@@ -95,11 +95,11 @@ def configure(
         if testnet:
             if testnet == "true" or testnet == "t":
                 print("Setting Testnet")
-                testnet_port = "<TESTNET-NODE-PORT>"
-                testnet_introducer = "<TESTNET10-INTRODUCER>"
-                testnet_dns_introducer = "<TESTNET10-DNS-INTRODUCER>"
-                bootstrap_peers = ["<TESTNET10-SEEDER-BOOTSTRAP-PEER>"]
-                testnet = "testnet10"
+                testnet_port = "55744"
+                testnet_introducer = "beta1_introducer.venidium.io"
+                testnet_dns_introducer = "dns-introducer-kition.venidium.io"
+                bootstrap_peers = ["testnet10-node.chia.net"]
+                testnet = "kition"
                 config["full_node"]["port"] = int(testnet_port)
                 config["full_node"]["introducer_peer"]["port"] = int(testnet_port)
                 config["farmer"]["full_node_peer"]["port"] = int(testnet_port)

@@ -26,9 +26,9 @@ MAX_TOTAL_PEERS_RECEIVED = 3000
 MAX_CONCURRENT_OUTBOUND_CONNECTIONS = 70
 NETWORK_ID_DEFAULT_PORTS = {
     "mainnet": <NODE-PORT>,
-    "testnet7": <TESTNET-NODE-PORT>,
-    "testnet10": <TESTNET-NODE-PORT>,
-    "testnet8": <TESTNET8-INTRODUCER-PORT>,
+    "testnet7": 55744,
+    "kition": 55744,
+    "testnet8": 58445,
 }
 
 

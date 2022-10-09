@@ -53,9 +53,9 @@ def generate_ca_signed_cert(ca_crt: bytes, ca_key: bytes, cert_out: Path, key_ou
     cert_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     new_subject = x509.Name(
         [
-            x509.NameAttribute(NameOID.COMMON_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "Venidium"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Venidium"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Venidium Dev Team"),
         ]
     )
 
@@ -68,7 +68,7 @@ def generate_ca_signed_cert(ca_crt: bytes, ca_key: bytes, cert_out: Path, key_ou
         .not_valid_before(datetime.datetime.today() - one_day)
         .not_valid_after(datetime.datetime(2100, 8, 2))
         .add_extension(
-            x509.SubjectAlternativeName([x509.DNSName("<SSL-DOMAIN-NAME>")]),
+            x509.SubjectAlternativeName([x509.DNSName("venidium.io")]),
             critical=False,
         )
         .sign(root_key, hashes.SHA256(), default_backend())
@@ -88,9 +88,9 @@ def make_ca_cert(cert_path: Path, key_path: Path):
     root_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     subject = issuer = x509.Name(
         [
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.COMMON_NAME, "<FORK-DISPLAY-NAME> CA"),
-            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Venidium"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "Venidium CA"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Venidium Dev Team"),
         ]
     )
     root_cert = (
@@ -116,7 +116,7 @@ def make_ca_cert(cert_path: Path, key_path: Path):
 
 
 def main():
-    return make_ca_cert(Path("./<FORK-TECHNICAL-NAME>_ca.crt"), Path("./chia_ca.key"))
+    return make_ca_cert(Path("./venidium_ca.crt"), Path("./chia_ca.key"))
 
 
 if __name__ == "__main__":

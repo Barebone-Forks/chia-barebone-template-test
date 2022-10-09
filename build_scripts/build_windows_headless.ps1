@@ -26,7 +26,7 @@ Set-Location -Path "dist\daemon" -PassThru
 
 Write-Output "   ---"
 Write-Output "Rename chia.exe"
-Rename-Item chia.exe <FORK-TECHNICAL-NAME>.exe
+Rename-Item chia.exe venidium.exe
 Write-Output "   ---"
 
 git status
@@ -34,7 +34,7 @@ git status
 Write-Output "   ---"
 Write-Output "Increase the stack for chia command for (chia plots create) chiapos limitations"
 # editbin.exe needs to be in the path
-editbin.exe /STACK:8000000 <FORK-TECHNICAL-NAME>.exe
+editbin.exe /STACK:8000000 venidium.exe
 Write-Output "   ---"
 
 git status
