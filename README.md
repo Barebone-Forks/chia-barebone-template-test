@@ -11,3 +11,6 @@ Check the following too:
 - `<DEFAULT-PASSPHRASE>`
 
 Change certs and block rewards too.
+
+Additionally:
+testnet names?
