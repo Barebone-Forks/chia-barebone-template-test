@@ -80,8 +80,8 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
     with lock_and_load_config(new_root, "config.yaml") as config:
         pool_child_pubkeys = [master_sk_to_pool_sk(sk).get_g1() for sk, _ in all_sks]
         all_targets = []
-        stop_searching_for_farmer = "xch_target_address" not in config["farmer"]
-        stop_searching_for_pool = "xch_target_address" not in config["pool"]
+        stop_searching_for_farmer = "<TICKER>_target_address" not in config["farmer"]
+        stop_searching_for_pool = "<TICKER>_target_address" not in config["pool"]
         number_of_ph_to_search = 50
         selected = config["selected_network"]
         prefix = config["network_overrides"]["config"][selected]["address_prefix"]
@@ -108,42 +108,42 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
                 all_targets.append(
                     encode_puzzle_hash(create_puzzlehash_for_pk(_derive_path(intermediate_n, [i]).get_g1()), prefix)
                 )
-                if all_targets[-1] == config["farmer"].get("xch_target_address") or all_targets[-2] == config[
+                if all_targets[-1] == config["farmer"].get("<TICKER>_target_address") or all_targets[-2] == config[
                     "farmer"
-                ].get("xch_target_address"):
+                ].get("<TICKER>_target_address"):
                     stop_searching_for_farmer = True
-                if all_targets[-1] == config["pool"].get("xch_target_address") or all_targets[-2] == config["pool"].get(
-                    "xch_target_address"
+                if all_targets[-1] == config["pool"].get("<TICKER>_target_address") or all_targets[-2] == config["pool"].get(
+                    "<TICKER>_target_address"
                 ):
                     stop_searching_for_pool = True
 
         # Set the destinations, if necessary
         updated_target: bool = False
-        if "xch_target_address" not in config["farmer"]:
+        if "<TICKER>_target_address" not in config["farmer"]:
             print(
                 f"Setting the xch destination for the farmer reward (1/8 plus fees, solo and pooling)"
                 f" to {all_targets[0]}"
             )
-            config["farmer"]["xch_target_address"] = all_targets[0]
+            config["farmer"]["<TICKER>_target_address"] = all_targets[0]
             updated_target = True
-        elif config["farmer"]["xch_target_address"] not in all_targets:
+        elif config["farmer"]["<TICKER>_target_address"] not in all_targets:
             print(
                 f"WARNING: using a farmer address which we might not have the private"
                 f" keys for. We searched the first {number_of_ph_to_search} addresses. Consider overriding "
-                f"{config['farmer']['xch_target_address']} with {all_targets[0]}"
+                f"{config['farmer']['<TICKER>_target_address']} with {all_targets[0]}"
             )
 
         if "pool" not in config:
             config["pool"] = {}
-        if "xch_target_address" not in config["pool"]:
+        if "<TICKER>_target_address" not in config["pool"]:
             print(f"Setting the xch destination address for pool reward (7/8 for solo only) to {all_targets[0]}")
-            config["pool"]["xch_target_address"] = all_targets[0]
+            config["pool"]["<TICKER>_target_address"] = all_targets[0]
             updated_target = True
-        elif config["pool"]["xch_target_address"] not in all_targets:
+        elif config["pool"]["<TICKER>_target_address"] not in all_targets:
             print(
                 f"WARNING: using a pool address which we might not have the private"
                 f" keys for. We searched the first {number_of_ph_to_search} addresses. Consider overriding "
-                f"{config['pool']['xch_target_address']} with {all_targets[0]}"
+                f"{config['pool']['<TICKER>_target_address']} with {all_targets[0]}"
             )
         if updated_target:
             print(
@@ -235,8 +235,8 @@ def create_all_ssl(
     private_ca_key_path = ca_dir / "private_ca.key"
     private_ca_crt_path = ca_dir / "private_ca.crt"
     chia_ca_crt, chia_ca_key = get_chia_ca_crt_key()
-    chia_ca_crt_path = ca_dir / "chia_ca.crt"
-    chia_ca_key_path = ca_dir / "chia_ca.key"
+    chia_ca_crt_path = ca_dir / "<FORK-TECHNICAL-NAME>_ca.crt"
+    chia_ca_key_path = ca_dir / "<FORK-TECHNICAL-NAME>_ca.key"
     write_ssl_cert_and_key(chia_ca_crt_path, chia_ca_crt, chia_ca_key_path, chia_ca_key)
 
     # If Private CA crt/key are passed-in, write them out

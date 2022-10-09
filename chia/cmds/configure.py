@@ -95,10 +95,10 @@ def configure(
         if testnet:
             if testnet == "true" or testnet == "t":
                 print("Setting Testnet")
-                testnet_port = "58444"
-                testnet_introducer = "introducer-testnet10.chia.net"
-                testnet_dns_introducer = "dns-introducer-testnet10.chia.net"
-                bootstrap_peers = ["testnet10-node.chia.net"]
+                testnet_port = "<TESTNET-NODE-PORT>"
+                testnet_introducer = "<TESTNET10-INTRODUCER>"
+                testnet_dns_introducer = "<TESTNET10-DNS-INTRODUCER>"
+                bootstrap_peers = ["<TESTNET10-SEEDER-BOOTSTRAP-PEER>"]
                 testnet = "testnet10"
                 config["full_node"]["port"] = int(testnet_port)
                 config["full_node"]["introducer_peer"]["port"] = int(testnet_port)
@@ -132,10 +132,10 @@ def configure(
 
             elif testnet == "false" or testnet == "f":
                 print("Setting Mainnet")
-                mainnet_port = "8444"
+                mainnet_port = "<NODE-PORT>"
                 mainnet_introducer = "introducer.chia.net"
-                mainnet_dns_introducer = "dns-introducer.chia.net"
-                bootstrap_peers = ["node.chia.net"]
+                mainnet_dns_introducer = "<DNS-INTRODUCER>"
+                bootstrap_peers = ["<SEEDER-BOOTSTRAP-PEER>"]
                 net = "mainnet"
                 config["full_node"]["port"] = int(mainnet_port)
                 config["full_node"]["introducer_peer"]["port"] = int(mainnet_port)

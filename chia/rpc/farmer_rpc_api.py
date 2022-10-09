@@ -67,7 +67,7 @@ def plot_matches_filter(plot: Plot, filter_item: FilterItem) -> bool:
 class FarmerRpcApi:
     def __init__(self, farmer: Farmer):
         self.service = farmer
-        self.service_name = "chia_farmer"
+        self.service_name = "<FORK-TECHNICAL-NAME>_farmer"
 
     def get_routes(self) -> Dict[str, Callable]:
         return {
