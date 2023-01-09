@@ -53,9 +53,9 @@ def generate_ca_signed_cert(ca_crt: bytes, ca_key: bytes, cert_out: Path, key_ou
     cert_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     new_subject = x509.Name(
         [
-            x509.NameAttribute(NameOID.COMMON_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "<CA-SIGNED-CERT-CN>"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<CA-SIGNED-CERT-O>"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "<CA-SIGNED-CERT-OU>"),
         ]
     )
 
@@ -88,9 +88,9 @@ def make_ca_cert(cert_path: Path, key_path: Path):
     root_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     subject = issuer = x509.Name(
         [
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<FORK-DISPLAY-NAME>"),
-            x509.NameAttribute(NameOID.COMMON_NAME, "<FORK-DISPLAY-NAME> CA"),
-            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "<CA-CERT-O>"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "<CA-CERT-CN>"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "<CA-CERT-OU>"),
         ]
     )
     root_cert = (

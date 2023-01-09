@@ -139,9 +139,9 @@ logging: &logging
 
 seeder:
   # The fake full node used for crawling will run on this port.
-  port: <SEEDER-FAKE-PORT-8444>
+  port: <SEEDER-FAKE-PORT=NODE-PORT>
   # Most full nodes on the network run on this port. (i.e. 8444 for mainnet, 58444 for testnet).
-  other_peers_port: <SEEDER-OTHER-PORT-8444>
+  other_peers_port: <SEEDER-OTHER-PORT=NODE-PORT>
   # This will override the default full_node.peer_connect_timeout for the crawler full node
   peer_connect_timeout: 2
   # Path to crawler DB. Defaults to $CHIA_ROOT/crawler.db
@@ -429,7 +429,7 @@ full_node:
       host: *self_hostname
       port: <TIMELORD-PORT>
   introducer_peer:
-      host: introducer.chia.net  # Chia AWS introducer IPv4/IPv6
+      host: <INTRODUCER-HOST>  # Chia AWS introducer IPv4/IPv6
       port: <INTRODUCER-PORT>
   wallet_peer:
     host: *self_hostname

@@ -9,6 +9,7 @@ Check the following too:
 - `<FORK-DISPLAY-NAME>`
 - `<SSL-DOMAIN-NAME>`
 - `<DEFAULT-PASSPHRASE>`
+- `<CA-*>`
 
 Change certs and block rewards too.
 
